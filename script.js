@@ -19,8 +19,8 @@ function Gameboard() {
 
 function Players() {
 
-  let playerOneName = "Peter";
-  let playerTwoName = "Klaus"
+  let playerOneName = "Jessy";
+  let playerTwoName = "Omar"
 
   const players = [{
           name: playerOneName,
@@ -54,55 +54,92 @@ function GameController() {
   const players = Players();
 
   const resetBoard = () => {
-    board = Gameboard();
-    console.log("Board has been reset.");
-    return board.board;
+      board = Gameboard();
+      console.log("Board has been reset.");
+      return board.board;
   }
 
   const checkWin = () => {
-    const winningCombinations = [
-// rows
-      [[0,0] , [0,1] , [0,2]],
-      [[1,0] , [1,1] , [1,2]],
-      [[2,0] , [2,1] , [2,2]],
-// columns
-      [[0,0] , [1,0] , [2,0]],
-      [[0,1] , [1,1] , [2,1]],
-      [[0,2] , [1,2] , [2,2]],
-// diagonal
-      [[0,0] , [1,1] , [2,2]],
-      [[0,2] , [1,1] , [2,0]],
-    ]
+      const winningCombinations = [
+          // rows
+          [
+              [0, 0],
+              [0, 1],
+              [0, 2]
+          ],
+          [
+              [1, 0],
+              [1, 1],
+              [1, 2]
+          ],
+          [
+              [2, 0],
+              [2, 1],
+              [2, 2]
+          ],
+          // columns
+          [
+              [0, 0],
+              [1, 0],
+              [2, 0]
+          ],
+          [
+              [0, 1],
+              [1, 1],
+              [2, 1]
+          ],
+          [
+              [0, 2],
+              [1, 2],
+              [2, 2]
+          ],
+          // diagonal
+          [
+              [0, 0],
+              [1, 1],
+              [2, 2]
+          ],
+          [
+              [0, 2],
+              [1, 1],
+              [2, 0]
+          ],
+      ]
 
-    for (let combination of winningCombinations) {
-      [a, b, c] = combination;
+      for (let combination of winningCombinations) {
+          [a, b, c] = combination;
 
-      if (
-        board.board[a[0]][a[1]] !== 0 &&
-        board.board[a[0]][a[1]] === board.board[b[0]][b[1]] &&
-        board.board[a[0]][a[1]] === board.board[c[0]][c[1]]
-      ) {
-        return board.board[a[0]][a[1]];
+          if (
+              board.board[a[0]][a[1]] !== 0 &&
+              board.board[a[0]][a[1]] === board.board[b[0]][b[1]] &&
+              board.board[a[0]][a[1]] === board.board[c[0]][c[1]]
+          ) {
+              return board.board[a[0]][a[1]];
+          }
       }
-    }
-
+      if (board.board.every(row => row.every(cell => cell > 0))) {
+          return 0;
+      }
   }
 
   const selectField = (row, column) => {
-    if (board.board[row][column] === 0) {
-      board.board[row][column] = (players.getActivePlayer() === players.players[0].name) ? players.players[0].token : players.players[1].token;
+      if (board.board[row][column] === 0) {
+          board.board[row][column] = (players.getActivePlayer() === players.players[0].name) ? players.players[0].token : players.players[1].token;
 
-    if (checkWin() === 1 ) {
-      console.log(`${players.getActivePlayer()} has won!`);
-      return board.board;
-    }
+          if (checkWin() === 1 || checkWin() === 2) {
+              console.log(`${players.getActivePlayer()} has won!`);
+              return board.board;
+          } else if (checkWin() === 0) {
+              console.log("It's a draw")
+              return board.board;
+          }
 
-      players.switchActivePlayer();
-      return board.board;
-    } else {
-      console.log("This field is not empty. Choose again, please.")
-      return
-    }
+          players.switchActivePlayer();
+          return board.board;
+      } else {
+          console.log("This field is not empty. Choose again, please.")
+          return
+      }
   }
   return {
       selectField,
