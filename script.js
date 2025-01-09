@@ -50,16 +50,29 @@ function Players() {
 
 function GameController() {
 
-  const board = Gameboard();
+  let board = Gameboard();
   const players = Players();
+
+  const resetBoard = () => {
+    board = Gameboard();
+    console.log("Board has been reset.");
+    return board.board;
+  }
   const selectField = (row, column) => {
+    if (board.board[row][column] === 0) {
       board.board[row][column] = (players.getActivePlayer() === players.players[0].name) ? players.players[0].token : players.players[1].token;
       players.switchActivePlayer();
       return board.board;
+    } else {
+      console.log("This field is not empty. Choose again, please.")
+      return
+    }
   }
   return {
-      selectField
-  }
+      selectField,
+      resetBoard
+  };
+
 }
 
 const game = GameController()
