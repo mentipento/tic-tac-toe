@@ -43,7 +43,9 @@ function Players() {
   return {
       players,
       getActivePlayer,
-      switchActivePlayer
+      switchActivePlayer,
+      playerOneName,
+      playerTwoName
   }
 
 }
@@ -56,7 +58,8 @@ function GameController() {
   const resetBoard = () => {
       board = Gameboard();
       console.log("Board has been reset.");
-      return board.board;
+      console.log(board.board);
+      return
   }
 
   const checkWin = () => {
@@ -128,25 +131,61 @@ function GameController() {
 
           if (checkWin() === 1 || checkWin() === 2) {
               console.log(`${players.getActivePlayer()} has won!`);
-              return board.board;
+              console.log(board.board);
+              return
           } else if (checkWin() === 0) {
               console.log("It's a draw")
-              return board.board;
+              console.log(board.board);
+              return
           }
 
           players.switchActivePlayer();
-          return board.board;
+          console.log(board.board);
+          return
       } else {
-          console.log("This field is not empty. Choose again, please.")
+          console.log("This field is not empty. Choose again, please.");
+          console.log(board.board);
           return
       }
   }
   return {
       selectField,
       resetBoard,
-      checkWin
+      checkWin,
+      players
   };
 
 }
 
 const game = GameController()
+
+const fields = document.querySelectorAll(".field");
+
+fields.forEach((field) => field.addEventListener("click", (event) => {
+    const row = parseInt(event.target.dataset.row);
+    const col = parseInt(event.target.dataset.col)
+    console.log(game.players.getActivePlayer());
+    console.log(`Selected cell: Row ${row}, Column ${col}`);
+    field.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
+    game.selectField(row,col);
+
+}));
+
+
+// const fieldOne = document.querySelector("#field1");
+// fieldOne.addEventListener("click", () => {
+//     console.log(game.players.getActivePlayer());
+//     console.log(game.players.playerOneName);
+//     fieldOne.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
+//     game.selectField(0,0);
+
+// });
+
+// const fieldTwo = document.querySelector("#field2");
+// fieldTwo.addEventListener("click", () => {
+//     console.log(game.players.getActivePlayer());
+//     console.log(game.players.playerOneName);
+//     fieldTwo.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
+//     game.selectField(0,1);
+
+// });

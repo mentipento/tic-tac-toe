@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-self: center;
+}
+
+.field {
+display: flex;
+justify-content: center;
+align-items: center;
+font-weight: bold;
+font-size: 30px;
+}
+
+#field2  {
+    border-width: 0 6px 0 6px;
+    border-style: solid;
+    border-color: black;
+}
+
+#field4  {
+    border-width: 6px 0 6px 0;
+    border-style: solid;
+    border-color: black;
+}
+
+#field5 {
+    border: 6px solid black;
+}
+
+#field6  {
+    border-width: 6px 0 6px 0;
+    border-style: solid;
+    border-color: black;
+}
+#field8  {
+    border-width: 0 6px 0 6px;
+    border-style: solid;
+    border-color: black;
+}
