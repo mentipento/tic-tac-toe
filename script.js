@@ -162,30 +162,16 @@ const game = GameController()
 const fields = document.querySelectorAll(".field");
 
 fields.forEach((field) => field.addEventListener("click", (event) => {
+    if (game.checkWin()) 
+        return
+    if (event.target.textContent !== "") {
+        console.log("This field is already taken.");
+        return; // Verhindert das Überschreiben
+    }
     const row = parseInt(event.target.dataset.row);
     const col = parseInt(event.target.dataset.col)
-    console.log(game.players.getActivePlayer());
-    console.log(`Selected cell: Row ${row}, Column ${col}`);
+    console.log(`${game.players.getActivePlayer()} selected cell: Row ${row}, Column ${col}`);
     field.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
     game.selectField(row,col);
 
 }));
-
-
-// const fieldOne = document.querySelector("#field1");
-// fieldOne.addEventListener("click", () => {
-//     console.log(game.players.getActivePlayer());
-//     console.log(game.players.playerOneName);
-//     fieldOne.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
-//     game.selectField(0,0);
-
-// });
-
-// const fieldTwo = document.querySelector("#field2");
-// fieldTwo.addEventListener("click", () => {
-//     console.log(game.players.getActivePlayer());
-//     console.log(game.players.playerOneName);
-//     fieldTwo.textContent = game.players.getActivePlayer() === game.players.playerOneName ? "X" : "O";
-//     game.selectField(0,1);
-
-// });
