@@ -9,19 +9,21 @@ h1 {
 }
 
 .container {
-    width: 500px;
-    height: 500px;
+    width: 450px;
+    height: 450px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     justify-self: center;
 }
 
 .field {
+width: 150px;
+height: 150px;
 display: flex;
 justify-content: center;
 align-items: center;
 font-weight: bold;
-font-size: 30px;
+font-size: 60px;
 }
 
 #field2  {
@@ -49,4 +51,9 @@ font-size: 30px;
     border-width: 0 6px 0 6px;
     border-style: solid;
     border-color: black;
+}
+
+#results {
+    text-align: center;
+    padding: 20px;
 }
