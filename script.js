@@ -71,6 +71,9 @@ function Players() {
 
 function GameController() {
 
+
+
+
   let board = Gameboard();
   const players = Players();
   const results = document.querySelector("#results")
@@ -154,6 +157,41 @@ function GameController() {
           return
       }
   }
+
+  const enterNames = document.querySelector("#enter-names-dialog");
+  enterNames.showModal();
+  enterNames.addEventListener("close", () => {
+      let playerOneNameInput = document.querySelector("#inputPlayerOneName");
+      let playerTwoNameInput = document.querySelector("#inputPlayerTwoName");
+  
+      if (playerOneNameInput && playerTwoNameInput) {
+          let playerOneName = inputPlayerOneName.value;
+          let playerTwoName = inputPlayerTwoName.value;
+          game.players.setPlayerOneName(playerOneName);
+          game.players.setPlayerTwoName(playerTwoName)
+  
+          // Update player names in the Players object
+  
+      }
+  });
+  
+  document.querySelector("#start-game").addEventListener("click", () => {
+      enterNames.close();
+  });
+  
+  document.querySelector("#reset-game").addEventListener("click", () => {
+      game.resetBoard();
+      const fields = document.querySelectorAll(".field");
+      const results = document.querySelector("#results")
+      fields.forEach((field) => {
+          field.textContent = "";
+      }
+      )
+      results.textContent = "Game initialised"
+      enterNames.showModal();
+  }
+  )
+
   return {
       selectField,
       resetBoard,
@@ -198,37 +236,3 @@ function GameUI(game) {
 const game = GameController();
 const gameUI = GameUI(game);
 gameUI.init();
-
-const enterNames = document.querySelector("#enter-names-dialog");
-enterNames.showModal();
-enterNames.addEventListener("close", () => {
-    let playerOneNameInput = document.querySelector("#inputPlayerOneName");
-    let playerTwoNameInput = document.querySelector("#inputPlayerTwoName");
-
-    if (playerOneNameInput && playerTwoNameInput) {
-        let playerOneName = inputPlayerOneName.value;
-        let playerTwoName = inputPlayerTwoName.value;
-        game.players.setPlayerOneName(playerOneName);
-        game.players.setPlayerTwoName(playerTwoName)
-
-        // Update player names in the Players object
-
-    }
-});
-
-document.querySelector("#start-game").addEventListener("click", () => {
-    enterNames.close();
-});
-
-document.querySelector("#reset-game").addEventListener("click", () => {
-    game.resetBoard();
-    const fields = document.querySelectorAll(".field");
-    const results = document.querySelector("#results")
-    fields.forEach((field) => {
-        field.textContent = "";
-    }
-    )
-    results.textContent = "Game initialised"
-    enterNames.showModal();
-}
-)
