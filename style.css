@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 h1 {
@@ -55,5 +55,11 @@ font-size: 60px;
 
 #results {
     text-align: center;
-    padding: 20px;
+    padding: 40px;
+    padding-top: 60px;
+}
+
+div#reset-button {
+    display: flex;
+    justify-content: center;
 }
